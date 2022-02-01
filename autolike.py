@@ -62,14 +62,16 @@ def like(dy_id,credential):
 
 if __name__ == '__main__':
 
-    _, uid = argv
+    _, *uid = argv
     cookies = login()
     cre = make_cre(cookies.cookies)
-    L = get_dy(uid,cre)
-    for i in L:
-        while True:
-            try:
-                like(i,cre)
-                break
-            except:
-                print('操作太过频繁!')
+    for p in uid:
+        L = get_dy(p,cre)
+        for i in range(len(L)):
+            while True:
+                try:
+                    like(L[i],cre)
+                    break
+                except:
+                    time.sleep(1)
+            print('-'*10,f'{i+1}/{len(L)}')
